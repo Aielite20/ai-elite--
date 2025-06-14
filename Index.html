@@ -3,127 +3,559 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI-Elite</title>
+    <title>AI Elites</title>
     <style>
-        /* General styles */
-        body {
-            font-family: 'Arial', sans-serif;
+        * {
             margin: 0;
             padding: 0;
-            background-color: #f5f5f5;
-            color: #333;
+            box-sizing: border-box;
         }
 
-        header {
-            background-color: #004d99;
-            color: #fff;
-            padding: 20px 0;
-            text-align: center;
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            height: 100vh;
+            overflow: hidden;
         }
 
-        header h1 {
-            margin: 0;
-            font-size: 2.5em;
-        }
-
-        main {
-            text-align: center;
-            padding: 20px;
-        }
-
-        .profile-img img {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            border: 5px solid #004d99;
-            margin-bottom: 20px;
-        }
-
-        .description {
-            font-size: 1.2em;
-            margin: 20px auto;
-            max-width: 600px;
-            line-height: 1.6;
-        }
-
-        .social-buttons {
+        .container {
             display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
+            flex-direction: column;
+            height: 100vh;
+            max-width: 400px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            position: relative;
         }
 
-        .social-buttons a {
-            display: inline-block;
-            text-decoration: none;
-            padding: 12px 20px;
-            border-radius: 5px;
-            color: #fff;
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            color: white;
+        }
+
+        .menu-icon {
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .menu-line {
+            width: 25px;
+            height: 3px;
+            background: white;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-icon:hover .menu-line {
+            background: #b3d9ff;
+        }
+
+        .logo {
+            font-size: 24px;
             font-weight: bold;
-            font-size: 1em;
-            transition: transform 0.2s;
+            letter-spacing: 2px;
         }
 
-        .social-buttons a:hover {
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        .welcome-text {
+            font-size: 28px;
+            color: rgba(255, 255, 255, 0.3);
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .action-btn {
+            background: white;
+            color: #1e3c72;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            background: #f0f8ff;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0 20px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            padding: 12px 16px;
+            border-radius: 18px;
+            max-width: 85%;
+            word-wrap: break-word;
+            line-height: 1.4;
+        }
+
+        .user-message {
+            background: white;
+            color: #1e3c72;
+            margin-left: auto;
+            text-align: right;
+        }
+
+        .ai-message {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            margin-right: auto;
+        }
+
+        .input-container {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            margin: 0 20px 20px 20px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .attach-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .attach-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .message-input {
+            flex: 1;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .message-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .send-btn {
+            background: white;
+            color: #1e3c72;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .send-btn:hover {
+            background: #f0f8ff;
             transform: scale(1.05);
         }
 
-        .whatsapp {
-            background-color: #25D366;
+        .send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
 
-        .facebook {
-            background-color: #3b5998;
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 18px;
+            max-width: 85%;
+            margin-bottom: 15px;
         }
 
-        .instagram {
-            background-color: #E1306C;
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.7);
+            animation: typing 1.5s infinite;
         }
 
-        footer {
-            background-color: #004d99;
-            color: #fff;
-            text-align: center;
-            padding: 10px 0;
-            margin-top: 30px;
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+                opacity: 0.7;
+            }
+            30% {
+                transform: translateY(-10px);
+                opacity: 1;
+            }
+        }
+
+        .chat-active .main-content {
+            display: none;
+        }
+
+        .chat-active .chat-messages {
+            display: block;
+        }
+
+        .history-panel {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 80%;
+            height: 100%;
+            background: rgba(30, 60, 114, 0.95);
+            backdrop-filter: blur(10px);
+            transition: left 0.3s ease;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .history-panel.active {
+            left: 0;
+        }
+
+        .history-header {
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .history-item {
+            color: rgba(255, 255, 255, 0.8);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .history-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            display: none;
+            z-index: 999;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                max-width: 100%;
+            }
+            
+            .welcome-text {
+                font-size: 24px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                width: 100%;
+                gap: 15px;
+            }
+            
+            .action-btn {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Header Section -->
-    <header>
-        <h1>Welcome to AI-Elite</h1>
-    </header>
-
-    <!-- Main Content -->
-    <main>
-        <!-- Profile Picture -->
-        <div class="profile-img">
-            <img src="https://www.dropbox.com/scl/fi/g77e20q2ngysqnoytl85d/221390b6-011f-4631-ba76-cc52bd004a1d.jpg?rlkey=c3tzo40442pkfl221j1t8k6p8&st=lb1ivyc6&raw=1" alt="AI-Elite Founder">
+    <div class="container" id="chatContainer">
+        <div class="overlay" id="overlay"></div>
+        
+        <div class="history-panel" id="historyPanel">
+            <div class="history-header">Chat History</div>
+            <div class="history-item" onclick="startNewChat()">New conversation</div>
+            <div class="history-item" onclick="loadSavedChat('images')">Image generation tips</div>
+            <div class="history-item" onclick="loadSavedChat('life')">Life advice session</div>
+            <div class="history-item" onclick="loadSavedChat('creative')">Creative writing help</div>
         </div>
 
-        <!-- Description -->
-        <div class="description">
-            <p>
-                Welcome to AI-Elite, your gateway to innovation and artificial intelligence solutions. 
-                Explore the power of AI-driven strategies and technologies that connect people and empower businesses.
-            </p>
-            <p>
-                Follow us on our social platforms to stay connected and updated with the latest trends and opportunities.
-            </p>
+        <div class="header">
+            <div class="menu-icon" id="menuIcon">
+                <div class="menu-line"></div>
+                <div class="menu-line"></div>
+                <div class="menu-line"></div>
+            </div>
+            <div class="logo">AI ELITES</div>
         </div>
 
-        <!-- Social Media Buttons -->
-        <div class="social-buttons">
-            <a href="https://wa.link/w79vod" class="whatsapp" target="_blank">Chat on WhatsApp</a>
-            <a href="https://www.facebook.com/profile.php?id=61555845572097" class="facebook" target="_blank">Follow on Facebook</a>
-            <a href="https://www.instagram.com/aielite20" class="instagram" target="_blank">Follow on Instagram</a>
+        <div class="main-content" id="mainContent">
+            <div class="welcome-text">WELCOME TO AI ELITES</div>
+            <div class="action-buttons">
+                <button class="action-btn" id="imageBtn">Imagen</button>
+                <button class="action-btn" id="lifeTipsBtn">life tips</button>
+            </div>
         </div>
-    </main>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2024 AI-Elite. All Rights Reserved.</p>
-    </footer>
-</body>
-</html>
+        <div class="chat-messages" id="chatMessages"></div>
+
+        <div class="input-container">
+            <button class="attach-btn" id="attachBtn">+</button>
+            <input type="text" class="message-input" id="messageInput" placeholder="Type your message...">
+            <button class="send-btn" id="sendBtn">Send</button>
+        </div>
+    </div>
+
+    <script>
+        // AI Response Database - Smart responses that work offline
+        const aiResponses = {
+            greeting: [
+                "Hello! I'm AI Elites, your intelligent assistant. How can I help you today?",
+                "Hi there! Welcome to AI Elites. What would you like to explore today?",
+                "Greetings! I'm here to assist you with any questions or tasks you have.",
+            ],
+            image: [
+                "I'd love to help you with image creation! Here are some great prompts to try:\n\n• 'A futuristic cityscape at sunset with flying cars'\n• 'A magical forest with glowing mushrooms and fairy lights'\n• 'A minimalist portrait of a person in monochrome'\n• 'An abstract painting with vibrant colors and geometric shapes'\n\nWhat style or subject are you most interested in?",
+                "Great choice! Image generation is fascinating. Consider these creative directions:\n\n✨ Fantasy & Sci-Fi: Dragons, spaceships, alien worlds\n🎨 Artistic Styles: Oil painting, watercolor, digital art, photography\n🏞️ Landscapes: Mountains, oceans, cities, abstract environments\n👥 Portraits: Realistic, cartoon, artistic interpretations\n\nWhat catches your imagination?",
+            ],
+            lifeTips: [
+                "Here are some valuable life tips for personal growth:\n\n🎯 **Focus on Progress, Not Perfection**\n• Small daily improvements compound over time\n• Celebrate small wins along the way\n\n💪 **Build Strong Habits**\n• Start with just 5 minutes a day\n• Consistency beats intensity\n\n🧠 **Never Stop Learning**\n• Read for 15 minutes daily\n• Learn one new skill each quarter\n\n❤️ **Prioritize Relationships**\n• Quality time with loved ones\n• Practice active listening\n\nWhat area would you like to focus on most?",
+                "Life wisdom for success and happiness:\n\n⏰ **Time Management**\n• Use the 80/20 rule - focus on what matters most\n• Plan your day the night before\n\n🌱 **Personal Growth**\n• Step out of your comfort zone regularly\n• Reflect on your experiences weekly\n\n💰 **Financial Wisdom**\n• Save before you spend\n• Invest in yourself first\n\n🧘 **Mental Health**\n• Practice gratitude daily\n• Take breaks when needed\n\nWhich area resonates with you most?",
+            ],
+            default: [
+                "That's an interesting question! Let me think about that...",
+                "I understand what you're asking. Here's my perspective on that:",
+                "Great question! Based on my knowledge, I can share some insights:",
+                "I'm glad you asked about that. Let me provide you with some helpful information:",
+            ],
+            creative: [
+                "I love helping with creative projects! Whether it's writing, brainstorming, or artistic ideas, I'm here to spark your imagination.",
+                "Creativity is one of my favorite topics! What kind of creative project are you working on?",
+            ],
+            technology: [
+                "Technology is evolving rapidly! I can help you understand various tech concepts, programming, or digital trends.",
+                "I'm passionate about technology! What specific tech topic interests you?",
+            ],
+            learning: [
+                "Learning is a lifelong journey! I can help you with study strategies, explain complex topics, or suggest learning resources.",
+                "Education and learning are so important! What subject would you like to explore?",
+            ]
+        };
+
+        // Elements
+        const chatContainer = document.getElementById('chatContainer');
+        const mainContent = document.getElementById('mainContent');
+        const chatMessages = document.getElementById('chatMessages');
+        const messageInput = document.getElementById('messageInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const imageBtn = document.getElementById('imageBtn');
+        const lifeTipsBtn = document.getElementById('lifeTipsBtn');
+        const menuIcon = document.getElementById('menuIcon');
+        const historyPanel = document.getElementById('historyPanel');
+        const overlay = document.getElementById('overlay');
+        const attachBtn = document.getElementById('attachBtn');
+
+        let isProcessing = false;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            setupEventListeners();
+            console.log('AI Elites Chat Interface Loaded Successfully');
+        });
+
+        function setupEventListeners() {
+            // Menu
+            menuIcon.addEventListener('click', toggleMenu);
+            overlay.addEventListener('click', closeMenu);
+
+            // Quick actions
+            imageBtn.addEventListener('click', () => handleQuickAction('image'));
+            lifeTipsBtn.addEventListener('click', () => handleQuickAction('lifeTips'));
+
+            // Messaging
+            sendBtn.addEventListener('click', handleSendMessage);
+            messageInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    handleSendMessage();
+                }
+            });
+
+            // Attach button
+            attachBtn.addEventListener('click', () => {
+                alert('📎 File attachment feature coming soon!');
+            });
+        }
+
+        function toggleMenu() {
+            historyPanel.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        function closeMenu() {
+            historyPanel.classList.remove('active');
+            overlay.classList.remove('active');
+        }
+
+        function handleQuickAction(type) {
+            activateChat();
+            const responses = aiResponses[type];
+            const response = responses[Math.floor(Math.random() * responses.length)];
+            
+            if (type === 'image') {
+                addMessage('I want to create an image. Can you help me with image generation ideas and prompts?', true);
+            } else if (type === 'lifeTips') {
+                addMessage('Can you give me some valuable life tips and advice?', true);
+            }
+
+            showTypingIndicator();
+            setTimeout(() => {
+                hideTypingIndicator();
+                addMessage(response, false);
+            }, 1500);
+        }
+
+        function activateChat() {
+            chatContainer.classList.add('chat-active');
+        }
+
+        async function handleSendMessage() {
+            const message = messageInput.value.trim();
+            if (!message || isProcessing) return;
+
+            messageInput.value = '';
+            activateChat();
+
+            // Add user message
+            addMessage(message, true);
+
+            // Process and respond
+            await processMessage(message);
+        }
+
+        async function processMessage(message) {
+            if (isProcessing) return;
+
+            isProcessing = true;
+            sendBtn.disabled = true;
+            sendBtn.textContent = 'Sending...';
+
+            showTypingIndicator();
+
+            // Simulate processing time
+            await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 2000));
+
+            hideTypingIndicator();
+
+            // Generate response based on message content
+            const response = generateResponse(message);
+            addMessage(response, false);
+
+            isProcessing = false;
+            sendBtn.disabled = false;
+            sendBtn.textContent = 'Send';
+        }
+
+        function generateResponse(message) {
+            const msg = message.toLowerCase();
+            
+            // Greetings
+            if (msg.includes('hello') || msg.includes('hi') || msg.includes('hey')) {
+                return getRandomResponse('greeting');
+            }
+            
+            // Image related
+            if (msg.includes('image') || msg.includes('picture') || msg.includes('photo') || msg.includes('art') || msg.includes('draw')) {
+                return getRandomResponse('image');
+            }
+            
+            // Life tips
+            if (msg.includes('life') || msg.includes('advice') || msg.includes('tip') || msg.includes('help') || msg.includes('guide')) {
+                return getRandomResponse('lifeTips');
+            }
+            
+            // Creative
+            if (msg.includes('creative') || msg.includes('write') || msg.includes('story') || msg.includes('idea')) {
+                return getRandomResponse('creative');
+            }
+            
+            // Technology
+            if (msg.includes('tech') || msg.includes('program') || msg.includes('code') || msg.includes('computer')) {
+                return getRandomResponse('technology');
+            }
+            
+            // Learning
+            if (msg.includes('learn') || msg.includes('study') || msg.includes('education') || msg.includes('explain')) {
+                return getRandomResponse('learning');
+            }
+            
+            // Default responses with context
+            const contextualResponses = [
+                `You asked about "${message.substring(0, 30)}${message.length > 30 ? '...' : ''}". That's a thoughtful question! Based on what you're asking, I think the key points to consider are the context and your specific goals. What aspect interests you most?`,
+                `I appreciate you sharing that with me. Regarding "${message.substring(0, 25)}${message.length > 25 ? '...' : ''}", there are several perspectives to consider. Would you like me to explore the practical implications or the theoretical aspects?`,
+                `That's an interesting topic! When it comes to what you mentioned, I find it helpful to break it down into smaller, manageable parts. What specific outcome are you hoping to achieve?`,
+                `Great question! I can see why you'd be curious about that. Let me offer some insights that might be helpful, and feel free to ask for more details on any point that interests you.`
+            ];
+            
+            return contextualResponses[Math.floor(Math.random() * contextualResponses.length)];
+        }
+
+        function getRandomResponse(category) {
+            const responses = aiResponses[category] || aiResponses.default;
+            return responses[Math.floor(Math.random() * responses.length)];
+        }
+
+        function addMessage(content, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', isUser ? 'user-message' : 'ai-message');
+            messageDiv.textContent = content;
+            chatMessages.appendChild(messageDi
